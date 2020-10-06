@@ -21,7 +21,7 @@ public class Main {
 		lastNames.add("Zselinszky");
 		Iterator<String> e = lastNames.iterator();
 		while(e.hasNext()) {
-			System.out.println(lastNames.removeFirst());
+			System.out.println(lastNames.remove());
 		}
 	}
 }
