@@ -5,13 +5,17 @@ public class Main {
 	public static void main(String[] args) {
 		//use linkeList as stack
 		LinkedList<String> names = new LinkedList<String>();
-		names.add("Chaith");
-		names.add("Habiba");
-		names.add("Maria");
+		names.push("Chaith");
+		names.push("Habiba");
+		names.push("Maria");
 		Iterator<String> ei = names.iterator();
 		while(ei.hasNext()) {
-			System.out.println(names.removeLast());
+			System.out.println(names.remove());
 		}
+		/*
+		 * remove take an argument but removeFirst dont take
+		 * for remove it take the position that we want to remove it is found of course
+		 * */
 		
 		System.out.println("--------------------");
 		//use LinkedList as queue
