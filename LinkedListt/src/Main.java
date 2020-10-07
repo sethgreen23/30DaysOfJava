@@ -11,13 +11,19 @@ public class Main {
 		//use iterator to go throw the elements of the collection
 		Iterator<String> ei = names.iterator();
 		while(ei.hasNext()) {
-			System.out.println(names.remove());
+			//this remove the current element and return it
+			//System.out.println(names.next());
+			System.out.println(ei.next());
 		}
 		/*
 		 * remove take an argument but removeFirst dont take
 		 * for remove it take the position that we want to remove it is found of course
 		 * */
-		
+		System.out.println("--------------------");
+		//use foreach to go throw the elements of the collection
+		for(String s : names) {
+			System.out.println(s);
+		}
 		System.out.println("--------------------");
 		//use LinkedList as queue
 		LinkedList<String> lastNames = new LinkedList<String>();
@@ -27,7 +33,14 @@ public class Main {
 		//use iterator to go throw the elements of the collection
 		Iterator<String> e = lastNames.iterator();
 		while(e.hasNext()) {
-			System.out.println(lastNames.remove());
+			//this remove the current element and return it
+			//System.out.println(names.next());
+			System.out.println(e.next());
+		}
+		System.out.println("--------------------");
+		//use foreach to go throw the elements of the collection
+		for(String ss : lastNames) {
+			System.out.println(ss);
 		}
 	}
 }
