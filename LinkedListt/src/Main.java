@@ -8,6 +8,7 @@ public class Main {
 		names.push("Chaith");
 		names.push("Habiba");
 		names.push("Maria");
+		//use iterator to go throw the elements of the collection
 		Iterator<String> ei = names.iterator();
 		while(ei.hasNext()) {
 			System.out.println(names.remove());
@@ -23,6 +24,7 @@ public class Main {
 		lastNames.add("Dridi");
 		lastNames.add("Hosni");
 		lastNames.add("Zselinszky");
+		//use iterator to go throw the elements of the collection
 		Iterator<String> e = lastNames.iterator();
 		while(e.hasNext()) {
 			System.out.println(lastNames.remove());
