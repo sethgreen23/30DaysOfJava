@@ -13,17 +13,35 @@ public class Main {
 			{0, 2, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0}
 	};
+	//create the path LinkedList
+	public static LinkedList<Position> path = new LinkedList<Position>();
 	public static void main(String[] args) {
-		//create the path LinkedList
-		LinkedList<Position> path = new LinkedList<Position>();
-		//create a position
-		Position p = new Position(0,7);
-		//add the position to the path
+		/*
+		 * We refactored the main method where we put   
+		 * a function that take the hole functionality 
+		 * inside of it 
+		 * we made the caller of the function(main)
+		 * handle the result of the called function (solveMaze)
+		 * we made a function that take the functionality of the
+		 * treatment of the direction functionality
+		 */
+		if(solveMaze(new Position(0,7))) {
+			System.out.println("You Won!");
+		}else {
+			 System.out.println("No Path.");
+		}
+		
+
+		
+
+	}
+	private static boolean solveMaze(Position p) {
 		path.push(p);
 		
 		/*
 		 * the y coordinate is the rows
 		 * the x coordinate is the columns
+		 * 
 		 * */
 		while(true) {
 			//take a peek to the first element in the stack
@@ -33,10 +51,11 @@ public class Main {
 			maze[y][x]=0;
 			
 			//doing down
+			
 			if(isValid(y+1,x)) {
 				if(maze[y+1][x]==2) {
-					System.out.println("Move Down. You Won.");
-					return;
+					System.out.println("Move Down.");
+					return true;
 				}else if(maze[y+1][x]==1) {
 					System.out.println("Move Down.");
 					path.push(new Position(y+1,x));
@@ -44,11 +63,12 @@ public class Main {
 				}
 			}
 			
+			
 			//up
 			if(isValid(y-1,x)) {
 				if(maze[y-1][x]==2) {
-					System.out.println("Moved Up. You Won.");
-					return;
+					System.out.println("Moved Up.");
+					return true;
 				}else if(maze[y-1][x]==1) {
 					System.out.println("Move Up.");
 					path.push(new Position(y-1,x));
@@ -60,8 +80,8 @@ public class Main {
 			//left
 			if(isValid(y,x-1)) {
 				if(maze[y][x-1]==2) {
-					System.out.println("Move Left. You Won.");
-					return;
+					System.out.println("Move Left.");
+					return true;
 				}else if(maze[y][x-1]==1) {
 					System.out.println("Move Left.");
 					path.push(new Position(y,x-1));
@@ -73,8 +93,8 @@ public class Main {
 			//right
 			if(isValid(y,x+1)) {
 				if(maze[y][x+1]==2) {
-					System.out.println("Move Right. You Won.");
-					return;
+					System.out.println("Move Right.");
+					return true;
 				}else if(maze[y][x+1]==1) {
 					System.out.println("Move Right.");
 					path.push(new Position(y,x+1));
@@ -91,21 +111,23 @@ public class Main {
 			path.pop();
 			System.out.println("We went back");
 			if(path.size()<=0) {
-				System.out.println("No Path");
-				return;
+				return false;
 			}
 				
 		}
 		
 		//parseMaze();
 		
-
 	}
+
 	public static boolean isValid(int y,int x) {
+		
 		/*
-		 * evalutate the border if we touch one
+		 * Evaluate the border if we touch one
 		 * of them then we return false otherwise we return true
-		 * */
+		 * 
+		 */
+		
 		if(y>=maze.length || y<0 || x>=maze[y].length || x<0 )
 			return false;
 		return true;
