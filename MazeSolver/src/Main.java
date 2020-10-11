@@ -1,9 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Main {
 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		/*
 		 * We refactored the main method where we put   
 		 * a function that take the hole functionality 
@@ -18,38 +22,31 @@ public class Main {
 		LinkedList<Maze> mazes = new LinkedList<Maze>();
 		//create maze that holds "the maze" ,"the path" and the "start position"
 		Maze m = new Maze();
-		int[][] maze = {
-			{0, 1, 1, 1, 1, 1, 0, 1},
-			{1, 1, 0, 1, 0, 1, 1, 1},
-			{1, 1, 0, 1, 0, 1, 0, 0},
-			{1, 0, 0, 0, 0, 0, 0, 0},
-			{1, 1, 0, 0, 0, 0, 0, 0},
-			{0, 1, 0, 0, 0, 0, 0, 0},
-			{0, 1, 0, 0, 0, 0, 0, 0},
-			{0, 2, 0, 0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0, 0, 0, 0}
-		};
+		//reading a maze from a file
+		//declate a scanner to read from the file
+		Scanner in = new Scanner(new File("maze.txt"));
+		//read the first line and parse it to int 
+		int rows = Integer.parseInt(in.nextLine());
+		//create the maze array that will hold the rows of the array 
+		int maze [][]=new int[rows][];
+		//loop throw the the hole lines of the array
+		for(int i=0;i<rows;i++) {
+			//create a string that holds the rows of the array
+			String line=in.nextLine();
+			//transform the rows to a string array and convert every element to integer then put 
+			//them in an object array that holds integers
+			int[] numbers = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
+			//submit every array that we parsed it to its indecated row in the maze array
+			maze[i]=numbers;
+		}
+		//get the start postion the y=row and x=columns
+		int y = Integer.parseInt(in.nextLine());
+		int x = Integer.parseInt(in.nextLine());
+		//initialize the maze object with the maze the start and we already initilized the path in the Maze class
 		m.maze = maze;
-		m.path = new LinkedList<Position>();
-		m.start= new Position(0,7);
-		
-		Maze n = new Maze();
-		int[][] n_maze = {
-				{0, 1, 1, 1, 1, 1, 0, 1},
-				{1, 1, 0, 1, 0, 1, 0, 1},
-				{1, 1, 0, 1, 0, 1, 0, 0},
-				{1, 0, 0, 0, 0, 0, 0, 0},
-				{1, 1, 0, 0, 0, 0, 0, 0},
-				{0, 1, 0, 0, 0, 0, 0, 0},
-				{0, 1, 0, 0, 0, 0, 0, 0},
-				{0, 2, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0}
-		};
-		n.maze = n_maze;
-		n.path = new LinkedList<Position>();
-		n.start= new Position(0,7);
+		m.start= new Position(y,x);
+
 		mazes.add(m);
-		mazes.add(n);
 		//loop throw the mazes in the linked list
 		int i=0;
 		while(i<mazes.size()) {
