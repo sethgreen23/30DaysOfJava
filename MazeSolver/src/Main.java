@@ -20,6 +20,7 @@ public class Main {
 			System.out.println();
 			//solve each one by passing the current maze to solve maze
 			if(solveMaze(mazes.get(i))) {
+				poolLast(mazes.get(i).realPath);
 				System.out.println("You Won!");
 			}else {
 				 System.out.println("No Path.");
@@ -36,13 +37,13 @@ public class Main {
 	private static ArrayList<Maze> createMazes() throws FileNotFoundException {
 		ArrayList mazes = new ArrayList<Maze>();
 		/*
-		 * -create a scanner that read from the file
-		 * -each maze contain the number of "rows"
-		 * -each row content
-		 * -the x, y of the start point in the maze
-		 * -separate each maze with "-" and we will consume the "-" at the end of each 
-		 * iteration to start a new maze each time
-		 * -we need to keep the same pathern to make sure the programme workes correctly 
+		 *-create a scanner that read from the file
+		 *-each maze contain the number of "rows"
+		 *-each row content
+		 *-the x, y of the start point in the maze
+		 *-separate each maze with "-" and we will consume the "-" at the end of each 
+		 *iteration to start a new maze each time
+		 *-we need to keep the same pathern to make sure the programme workes correctly 
 		 * */
 		
 		//put the scanner outside of the while loop
@@ -87,7 +88,14 @@ public class Main {
 	private static boolean solveMaze(Maze m) {
 		//we push the start position
 		m.path.push(m.start);
-		
+		/*
+		 * the idea for using realPath linked list
+		 * is to push the message describing the path 
+		 * the solver took in case this path is 
+		 * closed by walls i pop of that message of direction
+		 * and we do the same steps till we find a path 
+		 * if we didnt find a path then we dont need to show any path
+		 * */
 		/*
 		 * the y coordinate is the rows
 		 * the x coordinate is the columns
@@ -104,10 +112,10 @@ public class Main {
 			
 			if(isValid(y+1,x,m)) {
 				if(m.maze[y+1][x]==2) {
-					System.out.println("Move Down.");
+					m.realPath.push("Moved Down.");
 					return true;
 				}else if(m.maze[y+1][x]==1) {
-					System.out.println("Move Down.");
+					m.realPath.push("Moved Down.");
 					m.path.push(new Position(y+1,x));
 					continue;
 				}
@@ -117,10 +125,10 @@ public class Main {
 			//up
 			if(isValid(y-1,x,m)) {
 				if(m.maze[y-1][x]==2) {
-					System.out.println("Moved Up.");
+					m.realPath.push("Moved Up.");
 					return true;
 				}else if(m.maze[y-1][x]==1) {
-					System.out.println("Move Up.");
+					m.realPath.push("Moved Up.");
 					m.path.push(new Position(y-1,x));
 					continue;
 				}
@@ -130,10 +138,10 @@ public class Main {
 			//left
 			if(isValid(y,x-1,m)) {
 				if(m.maze[y][x-1]==2) {
-					System.out.println("Move Left.");
+					m.realPath.push("Moved Left.");
 					return true;
 				}else if(m.maze[y][x-1]==1) {
-					System.out.println("Move Left.");
+					m.realPath.push("Moved Left.");
 					m.path.push(new Position(y,x-1));
 					continue;
 				}
@@ -143,10 +151,10 @@ public class Main {
 			//right
 			if(isValid(y,x+1,m)) {
 				if(m.maze[y][x+1]==2) {
-					System.out.println("Move Right.");
+					m.realPath.push("Moved Right.");
 					return true;
 				}else if(m.maze[y][x+1]==1) {
-					System.out.println("Move Right.");
+					m.realPath.push("Moved Right.");
 					m.path.push(new Position(y,x+1));
 					continue;
 				}
@@ -159,7 +167,11 @@ public class Main {
 			 * path
 			 * */
 			m.path.pop();
-			System.out.println("We went back");
+			//System.out.println("We went back");
+			if(m.realPath.size()>0) {
+				m.realPath.pop();	
+			}
+
 			if(m.path.size()<=0) {
 				return false;
 			}
@@ -191,6 +203,16 @@ public class Main {
 				System.out.print(m[i][j]+" ");
 			}
 			System.out.println();
+		}
+	}
+	
+	/*
+	 * this function will delete the last path and will return it 
+	 * in the same time till the linked list is empty
+	 * */
+	public static void poolLast(LinkedList l) {
+		while(l.size()>0) {
+			System.out.println(l.pollLast());
 		}
 	}
 
