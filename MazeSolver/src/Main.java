@@ -9,17 +9,7 @@ public class Main {
 
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		/*
-		 * We refactored the main method where we put   
-		 * a function that take the hole functionality 
-		 * inside of it 
-		 * we made the caller of the function(main)
-		 * handle the result of the called function (solveMaze)
-		 * we made a function that take the functionality of the
-		 * treatment of the direction functionality
-		 */
-		
-		//make a linked list that holds the mazes we want to solve
+		//create a funciton that create mazes and return the arraylist
 		ArrayList<Maze> mazes = createMazes();
 		
 		//loop throw the mazes in the linked list
@@ -45,13 +35,23 @@ public class Main {
 	}
 	private static ArrayList<Maze> createMazes() throws FileNotFoundException {
 		ArrayList mazes = new ArrayList<Maze>();
-		//create maze that holds "the maze" ,"the path" and the "start position"
-		//reading a maze from a file
-		//declate a scanner to read from the file
+		/*
+		 * -create a scanner that read from the file
+		 * -each maze contain the number of "rows"
+		 * -each row content
+		 * -the x, y of the start point in the maze
+		 * -separate each maze with "-" and we will consume the "-" at the end of each 
+		 * iteration to start a new maze each time
+		 * -we need to keep the same pathern to make sure the programme workes correctly 
+		 * */
+		
+		//put the scanner outside of the while loop
 		Scanner in = new Scanner(new File("maze.txt"));
-		//read the first line and parse it to int 
+		//stop when we finish reading the hole file
 		while(in.hasNext()) {
+			//create the maze object
 			Maze m = new Maze();
+			//read the number of rows
 			int rows = Integer.parseInt(in.nextLine());
 			//create the maze array that will hold the rows of the array 
 			int maze [][]=new int[rows][];
@@ -69,12 +69,17 @@ public class Main {
 			//get the start postion the y=row and x=columns
 			int y = Integer.parseInt(in.nextLine());
 			int x = Integer.parseInt(in.nextLine());
-			//initialize the maze object with the maze the start and we already initilized the path in the Maze class
+			//initialize the maze object with the maze the start 
+			//and we already initilized the path in the Maze class
 			m.maze = maze;
 			m.start= new Position(y,x);
+			//add the maze object to the arraylist
 			mazes.add(m);
+			//read the "-" at the end to start reading a new maze 
+			//or to arrive to the end of the file
 			in.nextLine();
 		}
+		//close the scanner to save memory
 		in.close();
 		return mazes;
 
