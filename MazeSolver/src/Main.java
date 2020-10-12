@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -19,34 +20,8 @@ public class Main {
 		 */
 		
 		//make a linked list that holds the mazes we want to solve
-		LinkedList<Maze> mazes = new LinkedList<Maze>();
-		//create maze that holds "the maze" ,"the path" and the "start position"
-		Maze m = new Maze();
-		//reading a maze from a file
-		//declate a scanner to read from the file
-		Scanner in = new Scanner(new File("maze.txt"));
-		//read the first line and parse it to int 
-		int rows = Integer.parseInt(in.nextLine());
-		//create the maze array that will hold the rows of the array 
-		int maze [][]=new int[rows][];
-		//loop throw the the hole lines of the array
-		for(int i=0;i<rows;i++) {
-			//create a string that holds the rows of the array
-			String line=in.nextLine();
-			//transform the rows to a string array and convert every element to integer then put 
-			//them in an object array that holds integers
-			int[] numbers = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
-			//submit every array that we parsed it to its indecated row in the maze array
-			maze[i]=numbers;
-		}
-		//get the start postion the y=row and x=columns
-		int y = Integer.parseInt(in.nextLine());
-		int x = Integer.parseInt(in.nextLine());
-		//initialize the maze object with the maze the start and we already initilized the path in the Maze class
-		m.maze = maze;
-		m.start= new Position(y,x);
-
-		mazes.add(m);
+		ArrayList<Maze> mazes = createMazes();
+		
 		//loop throw the mazes in the linked list
 		int i=0;
 		while(i<mazes.size()) {
@@ -66,6 +41,42 @@ public class Main {
 		
 
 		
+
+	}
+	private static ArrayList<Maze> createMazes() throws FileNotFoundException {
+		ArrayList mazes = new ArrayList<Maze>();
+		//create maze that holds "the maze" ,"the path" and the "start position"
+		//reading a maze from a file
+		//declate a scanner to read from the file
+		Scanner in = new Scanner(new File("maze.txt"));
+		//read the first line and parse it to int 
+		while(in.hasNext()) {
+			Maze m = new Maze();
+			int rows = Integer.parseInt(in.nextLine());
+			//create the maze array that will hold the rows of the array 
+			int maze [][]=new int[rows][];
+			//loop throw the the hole lines of the array
+			for(int i=0;i<rows;i++) {
+				//create a string that holds the rows of the array
+				String line=in.nextLine();
+				//transform the rows to a string array and convert every element to integer then put 
+				//them in an object array that holds integers
+				int[] numbers = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
+				//submit every array that we parsed it to its indecated row in the maze array
+				maze[i]=numbers;
+				
+			}
+			//get the start postion the y=row and x=columns
+			int y = Integer.parseInt(in.nextLine());
+			int x = Integer.parseInt(in.nextLine());
+			//initialize the maze object with the maze the start and we already initilized the path in the Maze class
+			m.maze = maze;
+			m.start= new Position(y,x);
+			mazes.add(m);
+			in.nextLine();
+		}
+		in.close();
+		return mazes;
 
 	}
 	private static boolean solveMaze(Maze m) {
