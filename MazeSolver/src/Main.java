@@ -9,7 +9,7 @@ public class Main {
 
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		//create a funciton that create mazes and return the arraylist
+		//create a function that create mazes and return the ArrayList
 		ArrayList<Maze> mazes = createMazes();
 		
 		//loop throw the mazes in the linked list
