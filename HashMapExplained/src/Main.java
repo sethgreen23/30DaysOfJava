@@ -6,7 +6,19 @@ import java.util.Set;
 public class Main {
 
 	public static void main(String[] args) {
-		
+		/*
+		 * -HashMap:
+		 * Keys -> run on ->> Hash Function -> gives us ->> position to store the data
+		 * if it happens and we have the same hash for two values 
+		 * then on that location we will have a linked list of values
+		 * one after the other see wikipedia "Collection Frameworks"
+		 * 
+		 * -every single object have a hash code 
+		 * exemple : String s = "Hello"; 
+		 * s.hasCode() ->> 457841 (as exemple)
+		 * the Hash Function take a big number and a raisonnable operation to make it on 
+		 * a raisonnable range to meet the computer capabilities of string data
+		 * */
 		
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		//enter values
