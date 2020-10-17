@@ -42,7 +42,7 @@ public class Main {
 		 * -the words are not in order because the HashSet use the hashCode() method
 		 * on the String to determine where to insert it into the set 
 		 * -if you need the words ordered by order of insertion you can use another data structure
-		 * like the treeSet or arraylist
+		 * like the treeSet or arraylist (you need to be  with arraylist it accept duplicate data i dont know what happens with treeSet)
 		 * -System.out.println(words.contains("hello") --> the search is very fast because it take the hello
 		 * String and use the hash function on it and return the place where it is stored
 		 * */
@@ -53,6 +53,11 @@ public class Main {
 		 * 
 		 */
 		HashSet<String> words = new HashSet<String>();
+		/*
+		 * hashSets doesn't add duplicate data 
+		 * Example : you do words.("hello"); x2 (twice) it just add hello once onto the HashSet
+		 * 
+		 * */
 		words.add("hello");
 		words.add("bye");
 		words.add("curry");
